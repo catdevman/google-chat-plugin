@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+  Google Chat WebHook for Jenkins build events.
+</div>
