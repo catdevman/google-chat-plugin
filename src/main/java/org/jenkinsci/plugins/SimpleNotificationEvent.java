@@ -7,14 +7,4 @@ public class SimpleNotificationEvent extends NotificationEvent {
     }
     public String text;
     public Sender sender;
-
-    public void updateStatus(String status){
-        if( status == "success" ){
-            this.text += " was successful.";
-        } else if( status == "failed" ){
-            this.text += " failed!";
-        } else if( status == "started" ){
-            this.text += " has started.";
-        }
-    }
 }

@@ -18,16 +18,21 @@ public class GoogleChatBotPublisher extends Notifier {
     public Boolean onStart;
     public Boolean onSuccess;
     public Boolean onFailure;
+    public String startMessage;
+    public String successMessage;
+    public String failMessage;
 
 
     @DataBoundConstructor
-    public GoogleChatBotPublisher(String webHookUrl, boolean onStart, boolean onSuccess, boolean onFailure, String messageType) {
+    public GoogleChatBotPublisher(String webHookUrl, boolean onStart, boolean onSuccess, boolean onFailure, String startMessage, String successMessage, String failMessage) {
         super();
         this.webHookUrl = webHookUrl;
         this.onStart = onStart;
         this.onSuccess = onSuccess;
         this.onFailure = onFailure;
-        this.messageType = messageType;
+        this.startMessage = startMessage;
+        this.successMessage = successMessage;
+        this.failMessage = failMessage;
     }
 
     @Override

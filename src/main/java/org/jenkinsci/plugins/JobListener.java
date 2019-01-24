@@ -32,8 +32,7 @@ public class JobListener extends RunListener<AbstractBuild>{
             return;
         }
         String webHookUrl = publisher.webHookUrl;
-        NotificationEvent event = this.generateEvent(publisher.messageType, build);
-        event.updateStatus("started");
+        NotificationEvent event = this.generateEvent(publisher.startMessage, build);
         httpPost(webHookUrl, event);
     }
 
@@ -50,13 +49,13 @@ public class JobListener extends RunListener<AbstractBuild>{
         String webHookUrl = publisher.webHookUrl;
         NotificationEvent event = this.generateEvent(publisher.messageType, build);
         if (publisher.onSuccess && result.equals(Result.SUCCESS)) {
-            event.updateStatus("success");
-            httpPost(webHookUrl, event);
+            NotificationEvent event = this.generateEvent(publisher.successMessage, build);
         }
         if (publisher.onFailure && result.equals(Result.FAILURE)) {
-            event.updateStatus("failure");
-            httpPost(webHookUrl, event);
+            NotificationEvent event = this.generateEvent(publisher.failMessage, build);
         }
+        
+        httpPost(webHookUrl, event);
     }
 
     private GoogleChatBotPublisher GetWebHookPublisher(AbstractBuild build) {
@@ -72,16 +71,10 @@ public class JobListener extends RunListener<AbstractBuild>{
         String buildUrl = build.getAbsoluteUrl();
         String projectName = build.getProject().getDisplayName();
         String buildName = build.getDisplayName();
-
-        if( messageType.equals("simple") ) {
-            SimpleNotificationEvent simpleNotificationEvent = new SimpleNotificationEvent();
-            simpleNotificationEvent.text = projectName + ":" + buildName + " @ " + buildUrl;
-            return simpleNotificationEvent;
-        } else if( messageType.equals("card") ){
-            CardNotificationEvent cardNotificationEvent = new CardNotificationEvent();
-            return cardNotificationEvent;
-        }
-        return null;
+        SimpleNotificationEvent simpleNotificationEvent = new SimpleNotificationEvent();
+        simpleNotificationEvent.text = projectName + ":" + buildName + " @ " + buildUrl;
+        return simpleNotificationEvent;
+       
     }
     private void httpPost(String url, Object object) {
         String jsonString = JSON.toJSONString(object);

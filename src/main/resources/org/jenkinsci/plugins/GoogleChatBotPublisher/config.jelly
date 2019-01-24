@@ -12,9 +12,13 @@
   <f:entry title="Send notification on failure">
       <f:checkbox name="onFailure" value="true" checked="${instance.onFailure}"/>
   </f:entry>
- <f:entry name="messageType" title="Message Type" field="messageType">
-     <select name="messageType">
-         <option value="simple">Simple</option>
-     </select>
- </f:entry>
+  <f:entry title="Start Message">
+      <f:textbox name="startMessage" value="${instance.startMessage}" default="$PROJECT_NAME:$BUILD_NAME @ $BUILD_URL was started."/>
+  </f:entry>
+  <f:entry title="Success Message">
+      <f:textbox name="successMessage" value="${instance.successMessage}" default="$PROJECT_NAME:$BUILD_NAME @ $BUILD_URL was successful!"/>
+  </f:entry>
+  <f:entry title="Failure Message">
+      <f:textbox name="failMessage"  value="${instance.failMessage}" default="$PROJECT_NAME:$BUILD_NAME @ $BUILD_URL has failed!"/>
+  </f:entry>
 </j:jelly>
